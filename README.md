@@ -16,10 +16,13 @@ EC2 Setup & Connection
 
 EC2 Connection
 --------------------------------
-1. If Windows + PuTTY run PuTTYgen to create a putty version of you key pair (Load key.pem, save as key.ppk)
+Windows
+1. Run PuTTYgen to create a putty version of you key (Load key.pem, save as key.ppk)
 2. Input ubuntu@ElasticIPAddress as Host Name and under Connection>SSH>Auth Browse for the key.ppk
 3. Save and connect
 
+Linux
+1. ssh -i test.pem ubuntu@ElasticIPAddress
 
 FTP Setup
 --------------------------------
@@ -55,9 +58,9 @@ Add
 9.Connect with username and password to IP on port 21
 
 
-Domain Setup
+Domain Setup with Domain Host (Namecheap Etc.)
 --------------------------------
-1. Setup Email redirection
+1. Setup Email redirection if you want
 2. Setup DNS
 
 Add
@@ -72,7 +75,7 @@ Add
 NodeJS Setup
 --------------------------------
 1. sudo apt-get install python-software-properties
-2. curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+2. curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 3. sudo apt-get install nodejs
 
 
@@ -143,7 +146,7 @@ PM2 Setup
 2. pm2 startup
 3. sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
 
-PM2 Setup (Run Forever)
+PM2 Setup (Run and Restart on Reboot and Errors)
 --------------------------------
 1. Go to your node project
 2. pm2 start server.js --name="PROJECT NAME"
@@ -162,7 +165,7 @@ PM2 Setup (Run Forever)
 Misc
 --------------------------------
 * Edit File: sudo nano filename
-* Save File: Ctrl-x, y, Enter
+* Save File: Ctrl-x, Y, Enter
 * Move Out Directory: cd ../
 * Move Directory: cd directory
 * List Directories: ls
