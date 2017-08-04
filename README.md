@@ -134,10 +134,7 @@ Add ** Replace DOMAINNAME.com with your domain name and PORT with your NODEJS Po
 ```
 
 8. sudo systemctl restart nginx
-9. sudo crontab -e
-
-ADD
-* 52 0,12 * * * cd /home/ubuntu/ && ./certbot-auto renew --quiet --pre-hook "sudo systemctl stop nginx" --post-hook "sudo systemctl start nginx"
+9. Run every 90 days to renew ./certbot-auto renew --pre-hook "sudo systemctl stop nginx"
 
 
 PM2 Setup
