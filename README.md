@@ -1,4 +1,9 @@
-# VPS Start Guide
+# USE THE AUTO SCRIPT FOR UBUNTU 16.04
+
+wget -O - https://raw.githubusercontent.com/cgidzinski/VPS-Start-Guide/master/installer.sh | bash
+
+
+# VPS Start Guide Manual
 #### By Colin Gidzinski
 ##### March 31/2017
 -------------------------------------------------------------------------------
