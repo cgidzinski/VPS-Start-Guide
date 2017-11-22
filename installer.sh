@@ -32,8 +32,17 @@ read domain
 echo "Enter port (8000):"
 read port
 
+echo "Overwrite (y/n):"
+read overwrite
+if [[ "$overwrite" == "y" ]]
+then
+$optArgs = "-a"
+else
+$optArgs = ""	
+fi
+
 sudo systemctl stop nginx
-sudo tee /etc/nginx/sites-enabled/default > /dev/null << EOL
+sudo tee $optArgs /etc/nginx/sites-enabled/default > /dev/null << EOL
 	server {
 	       listen         80;
 	       server_name    $domain www.$domain;
