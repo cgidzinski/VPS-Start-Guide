@@ -43,33 +43,33 @@ fi
 
 sudo systemctl stop nginx
 sudo tee $optArgs /etc/nginx/sites-enabled/default > /dev/null << EOL
-	server {
-	       listen         80;
-	       server_name    $domain www.$domain;
-	       return         301 https://$server_name$request_uri;
-	}
-		server {
-	        listen 443;
-	        server_name $domain www.$domain;
-	        ssl on;
-	        ssl_certificate /etc/letsencrypt/live/$domain/fullchain.pem;
-	        ssl_certificate_key /etc/letsencrypt/live/$domain/privkey.pem;
-	        ssl_session_timeout 5m;
-	        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-	        ssl_prefer_server_ciphers on;
-	        ssl_dhparam /etc/ssl/certs/$domain.pem;
-	        ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
-	location / {
-	          proxy_set_header        Host $host;
-	          proxy_set_header        X-Real-IP $remote_addr;
-	          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarsudoded_for;
-	          proxy_set_header        X-Forwarded-Proto $scheme;
-	          proxy_set_header Upgrade $http_upgrade;
-	          proxy_set_header Connection "upgrade";
-	          proxy_pass http://localhost:$port;
-	          proxy_read_timeout  90;
-	}
-	}
+server {
+       listen         80;
+       server_name    $domain www.$domain;
+       return         301 https://\$server_name\$request_uri;
+}
+server {
+    listen 443;
+    server_name $domain www.$domain;
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/$domain/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$domain/privkey.pem;
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_dhparam /etc/ssl/certs/$domain.pem;
+    ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+location / {
+      proxy_set_header        Host \$host;
+      proxy_set_header        X-Real-IP \$remote_addr;
+      proxy_set_header        X-Forwarded-For \$proxy_add_x_forwarded_for;
+      proxy_set_header        X-Forwarded-Proto \$scheme;
+      proxy_set_header Upgrade \$http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_pass http://localhost:$port;
+      proxy_read_timeout  90;
+}
+}
 EOL
 sudo openssl dhparam -out /etc/ssl/certs/$domain.pem 2048
 sudo certbot certonly --standalone -d $domain -d www.$domain
@@ -99,7 +99,7 @@ read -r -p "Your Choice: " response
 
 if [[ "$response" == "0" ]]
 then
-exit
+exit 0
 fi
 
 if [[ "$response" == "1" ]]
